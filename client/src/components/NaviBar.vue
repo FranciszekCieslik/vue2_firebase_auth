@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-navbar type="dark" variant="dark">
+    <b-navbar toggable="lg" type="dark" variant="dark">
       <b-navbar-nav>
-        <b-nav-item to="/">LookLoom</b-nav-item>
+        <b-navbar-brand to="/">LookLoom</b-navbar-brand>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-avatar v-if="user" :src="avatarphoto"></b-avatar>
@@ -14,8 +14,7 @@
           <template #button-content>
             <b-icon
               icon="translate"
-              class="h2 mb-0"
-              style="color: grey"
+              class="h2 mb-0 custom-hover"
             ></b-icon>
           </template>
           <b-dropdown-item href="#">EN</b-dropdown-item>
@@ -54,3 +53,13 @@ export default {
   
 };
 </script>
+
+<style>
+.custom-hover {
+  color: grey;
+}
+
+.custom-hover:hover {
+  color: lightgrey;
+}
+</style>
