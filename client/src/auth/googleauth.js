@@ -3,15 +3,13 @@ import app  from "../firebaseConfig.js";
 import router from "@/router/index.js";
 
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
 
 export function login_google() {
-    signInWithPopup(auth, provider)
+    signInWithPopup(auth, new GoogleAuthProvider())
         .then((result) => {
             // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            console.log(`token:${token}`);
+            // const credential = GoogleAuthProvider.credentialFromResult(result);
+            // const token = credential.accessToken;
             const user = result.user;
             sessionStorage.setItem('user', user);
             sessionStorage.setItem('photoURL',user.photoURL.toString())
@@ -19,16 +17,18 @@ export function login_google() {
             router.push('/');
             router.go();
         })
-        // .catch((error) => {
-        //     // Handle Errors here.
-        //     const errorCode = error.code;
-        //     const errorMessage = error.message;
-        //     // The email of the user's account used.
-        //     const email = error.customData.email;
-        //     // The AuthCredential type that was used.
-        //     const credential = GoogleAuthProvider.credentialFromError(error);
-        //     // ...
-        // });
+        .catch((error) => {
+            // // Handle Errors here.
+            // const errorCode = error.code;
+            // const errorMessage = error.message;
+            // // The email of the user's account used.
+            // const email = error.customData.email;
+            // // The AuthCredential type that was used.
+            // const credential = GoogleAuthProvider.credentialFromError(error);
+            // // ...
+            router.push('/loginfailed');
+            console.log(error);
+        });
 }
 
 // SIGNOUT

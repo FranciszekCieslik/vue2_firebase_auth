@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SignIn from "../views/SignIn.vue"
+import LoginFailed from '@/views/LoginFailed.vue'
 
 Vue.use(VueRouter)
 
@@ -23,7 +24,12 @@ const routes = [
     path:'/signin',
     name: 'SignIn',
     component: SignIn,
-} 
+  },
+  {
+    path:'/loginfailed',
+    name:'LoginFailed',
+    component: LoginFailed
+  } 
 ]
 
 const router = new VueRouter({

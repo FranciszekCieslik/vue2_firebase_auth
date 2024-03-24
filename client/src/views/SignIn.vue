@@ -4,17 +4,22 @@
       <h3>LookLoom</h3>
       <h1>Sign in</h1>
       <a class="button google" @click="google_login">
-		<b-icon icon="google" aria-hidden="true"></b-icon>
-		Sign in with Google</a>
+        <b-icon icon="google" aria-hidden="true"></b-icon>
+        Sign in with Google</a
+      >
     </section>
     <section v-if="!loging" class="prompt">
-        <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
-	</section>
+      <b-spinner
+        style="width: 3rem; height: 3rem"
+        label="Large Spinner"
+      ></b-spinner>
+    </section>
   </div>
 </template>
 
 <script>
 import { login_google } from "@/auth/googleauth";
+
 export default {
   data() {
     return {
@@ -25,7 +30,7 @@ export default {
     google_login() {
       login_google();
       this.loging = false;
-    },
+    }
   },
 };
 </script>
