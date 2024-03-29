@@ -11,8 +11,8 @@ export function login_google() {
             // const credential = GoogleAuthProvider.credentialFromResult(result);
             // const token = credential.accessToken;
             const user = result.user;
-            sessionStorage.setItem('user', user);
-            sessionStorage.setItem('photoURL',user.photoURL.toString())
+            localStorage.setItem('LookLoomUser', user);
+            localStorage.setItem('LookLoomPhotoURL',user.photoURL.toString())
         }).then(()=>{
             router.push('/');
             router.go();
@@ -35,8 +35,9 @@ export function login_google() {
 
 export function logout_google() {
     signOut(auth).then(() => {
-        sessionStorage.clear();
+        localStorage.clear();
         console.log(`Signout success`);
+        router.push('/')
         router.go();
     }).catch((error) => {
         console.log(`Error:${error}`)

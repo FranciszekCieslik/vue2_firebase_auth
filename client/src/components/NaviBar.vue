@@ -7,15 +7,12 @@
       <b-navbar-nav class="ml-auto">
         <b-avatar v-if="user" :src="avatarphoto"></b-avatar>
         <b-nav-item-dropdown v-if="user" text="User" right>
-          <b-dropdown-item href="#">Account</b-dropdown-item>
-          <b-dropdown-item href="#">Settings</b-dropdown-item>
+          <b-dropdown-item to="/account">Account</b-dropdown-item>
+          <b-dropdown-item to="/settings">Settings</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item-dropdown text="Lang" right>
           <template #button-content>
-            <b-icon
-              icon="translate"
-              class="h2 mb-0 custom-hover"
-            ></b-icon>
+            <b-icon icon="translate" class="h2 mb-0 custom-hover"></b-icon>
           </template>
           <b-dropdown-item href="#">EN</b-dropdown-item>
           <b-dropdown-item href="#">ES</b-dropdown-item>
@@ -31,13 +28,13 @@
 </template>
 <script>
 import { logout_google } from "../auth/googleauth";
-const storage_user = sessionStorage?.getItem('user');
-const photo_user = sessionStorage.getItem('photoURL');
-setTimeout(console.log,3000,photo_user)
+const storage_user = localStorage?.getItem("LookLoomUser");
+const photo_user = localStorage.getItem("LookLoomPhotoURL");
+
 export default {
   methods: {
     logout() {
-      logout_google();
+      logout_google(); 
     },
   },
   name: "NaviBar",
@@ -45,12 +42,11 @@ export default {
     msg: String,
   },
   data() {
-    return { 
+    return {
       user: storage_user,
-      avatarphoto: photo_user
-   };
+      avatarphoto: photo_user,
+    };
   },
-  
 };
 </script>
 

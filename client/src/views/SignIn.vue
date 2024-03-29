@@ -30,7 +30,7 @@ export default {
     google_login() {
       login_google();
       this.loging = false;
-    }
+    },
   },
 };
 </script>

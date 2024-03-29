@@ -6,8 +6,8 @@
         style="text-shadow: 0px 0px 2px #000"
         fade
         indicators
-        img-width="1024"
-        img-height="480"
+        img-width="512"
+        img-height="240"
       >
         <b-carousel-slide
           caption="First Slide"
@@ -23,23 +23,36 @@
         ></b-carousel-slide>
       </b-carousel>
     </div>
-
     <NaviBar msg="" />
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
-</template>
+    <div>
+      <iframe class="ytvideo"
+      src="https://www.youtube.com/embed/Qa3YhlMU5Tg?si=uDlUOgq4f94hhfX4"
+      title="YouTube video player"
+      frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
 import NaviBar from "@/components/NaviBar.vue";
 
 export default {
   name: "HomeView",
   components: {
-    HelloWorld,
     NaviBar,
   },
 };
 </script>
+
+<style>
+.ytvideo{
+  padding: 100px;
+  width:100%;
+  height:600px;
+}
+</style>

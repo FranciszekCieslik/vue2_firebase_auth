@@ -1,0 +1,107 @@
+<template>
+  <b-card bg-variant="light" class="prompt" header="My sizes" v-if="isVisable">
+    <div>
+      <!-- <h6 v-for="it in items" :key="it">{{ it }}</h6>
+      <h6 v-for="it in form" :key="it">?{{ it }}</h6> -->
+      <b-form @submit="onSubmit" @reset="onReset">
+        <b-form-group
+          v-for="(size, index) in sizes"
+          :key="size"
+          :id="'fieldset-horizontal-' + index"
+          label-cols-sm="4"
+          label-cols-lg="3"
+          content-cols-sm
+          content-cols-lg="7"
+          :label="size"
+          :label-for="'input-' + index"
+        >
+          <b-form-input
+            :id="'input-' + index"
+            v-model="form[size]"
+            type="number"
+            :placeholder="conditions[index].placeholder"
+            :min="conditions[index].min"
+            :max="conditions[index].max"
+            required
+          >
+          </b-form-input>
+        </b-form-group>
+
+        <b-button
+          @click="show"
+          style="margin: 20px"
+          type="reset"
+          variant="danger"
+          >Cancel</b-button
+        >
+        <b-button type="submit" variant="info">Save</b-button>
+      </b-form>
+      <!-- <b-card class="mt-3" header="Form Data Result">
+        <pre class="m-0">{{ form }}</pre>
+      </b-card> -->
+    </div>
+  </b-card>
+</template>
+
+<script>
+export default {
+  name: "SizeForm",
+  props: ["isVisable"],
+
+  data() {
+    return {
+      form: {
+        Hight: "",
+        Neck: "",
+        "Front length": "",
+        Shoulder: "",
+        Chest: "",
+        Waist: "",
+        Hip: "",
+        "Leg length": "",
+        "Foot Size": "",
+      },
+
+      sizes: [],
+
+      conditions: [
+        { placeholder: "170 cm", min: "100", max: "300" },
+        { placeholder: "35 cm", min:"30", max:"46" },
+        { placeholder: "60 cm", min: "50", max: "80" },
+        { placeholder: "50 cm", min: "30", max: "70" },
+        { placeholder: "90 cm", min: "70", max: "130" },
+        { placeholder: "80 cm", min: "60", max: "110" },
+        { placeholder: "80 cm", min: "60", max: "120" },
+        { placeholder: "80 cm", min: "60", max: "100" },
+        { placeholder: "38", min: "32", max: "48" },
+      ],
+    };
+  },
+  created() {
+    this.sizes = Object.keys(this.form);
+  },
+  methods: {
+    onSubmit(event) {
+      event.preventDefault();
+      alert(JSON.stringify(this.form));
+      this.$emit("show");
+    },
+    onReset(event) {
+      event.preventDefault();
+    },
+    show() {
+      this.$emit("show");
+    },
+  },
+};
+</script>
+
+<style>
+.prompt {
+  margin: 40px;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+}
+</style>
