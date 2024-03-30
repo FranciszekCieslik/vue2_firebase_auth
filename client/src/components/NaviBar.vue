@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggable="lg" type="dark" variant="dark">
+    <b-navbar toggable="lg" type="dark" variant="dark" style="padding-block: 30px;">
       <b-navbar-nav>
         <b-navbar-brand to="/">LookLoom</b-navbar-brand>
       </b-navbar-nav>
@@ -28,8 +28,6 @@
 </template>
 <script>
 import { logout_google } from "../auth/googleauth";
-const storage_user = localStorage?.getItem("LookLoomUser");
-const photo_user = localStorage.getItem("LookLoomPhotoURL");
 
 export default {
   methods: {
@@ -43,10 +41,15 @@ export default {
   },
   data() {
     return {
-      user: storage_user,
-      avatarphoto: photo_user,
+      user: null,
+      avatarphoto: null,
     };
   },
+  created(){
+    if(localStorage.getItem("LookLoomUser")){
+    this.user = JSON.parse(localStorage?.getItem("LookLoomUser"));
+    this.avatarphoto = this.user.photo}
+  }
 };
 </script>
 

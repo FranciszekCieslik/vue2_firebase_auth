@@ -44,6 +44,9 @@
 </template>
 
 <script>
+import router from '@/router';
+import {updateUserSizes} from '@/firestore'
+
 export default {
   name: "SizeForm",
   props: ["isVisable"],
@@ -61,9 +64,9 @@ export default {
         "Leg length": "",
         "Foot Size": "",
       },
-
+      
       sizes: [],
-
+      
       conditions: [
         { placeholder: "170 cm", min: "100", max: "300" },
         { placeholder: "35 cm", min:"30", max:"46" },
@@ -79,12 +82,17 @@ export default {
   },
   created() {
     this.sizes = Object.keys(this.form);
+    if(localStorage.getItem('LookLoomUserSizes')){
+      this.form = JSON.parse(localStorage.getItem('LookLoomUserSizes'));
+    }
   },
   methods: {
-    onSubmit(event) {
+    async onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
+      localStorage.setItem('LookLoomUserSizes', JSON.stringify(this.form));
       this.$emit("show");
+      await updateUserSizes();
+      router.go();
     },
     onReset(event) {
       event.preventDefault();

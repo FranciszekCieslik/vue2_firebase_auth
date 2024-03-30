@@ -1,9 +1,7 @@
 <template>
   <b-card bg-variant="light" class="prompt" v-if="isVisable">
     <div>
-      <h5 v-for="size in sizes" :key="size">
-        {{ size }}: {{ form[size] }}
-      </h5>
+      <h5 v-for="size in sizes" :key="size">{{ size }}: {{ form[size] }}</h5>
     </div>
     <b-button variant="info" @click="show">
       <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
@@ -15,17 +13,22 @@
 <script>
 import SizeForm from './SizeForm.vue';
 var form = SizeForm.data().form;
-const sizes = Object.keys(form);
 
 export default {
   name: "SizeInfo",
-  props: ["isVisable"], 
+  props: ["isVisable"],
 
   data() {
     return {
       form: form,
-      sizes: sizes,
+      sizes: [],
     };
+  },
+  created() {
+    this.sizes = Object.keys(this.form);
+    if (localStorage.getItem("LookLoomUserSizes")) {
+      this.form = JSON.parse(localStorage.getItem("LookLoomUserSizes"));
+    }
   },
 
   methods: {

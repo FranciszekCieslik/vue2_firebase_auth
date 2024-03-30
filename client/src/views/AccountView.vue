@@ -1,18 +1,20 @@
 <template>
-    <div>
-        <NaviBar msg=""/>
-        <b-row style="margin-inline: 15%;">
-            <b-col> 
-                 <div class="px-3 py-2">
-                    <h4>Account</h4>
-                 </div>
-            </b-col>
-            <b-col cols="9">
-            <SizeInfo :isVisable="isVisable" @show="edit"/>
-            <SizeForm :isVisable="!isVisable" :form="form" @show="edit"/>
-            </b-col>
-        </b-row>
+  <div>
+    <NaviBar msg="" />
+    <div style="padding-top: 10%">
+      <b-row style="margin-inline: 15%">
+        <b-col>
+          <div class="px-3 py-2">
+            <h4>Account</h4>
+          </div>
+        </b-col>
+        <b-col cols="9">
+          <SizeInfo :isVisable="isVisable" @show="edit" />
+          <SizeForm :isVisable="!isVisable" :form="form" @show="edit" />
+        </b-col>
+      </b-row>
     </div>
+  </div>
 </template>
 
 <script>
@@ -25,11 +27,11 @@ export default {
   components: {
     NaviBar,
     SizeInfo,
-    SizeForm
+    SizeForm,
   },
-  data(){
-    return{
-      isVisable:true,
+  data() {
+    return {
+      isVisable: true,
       form: {
         hight: "",
         front: "",
@@ -38,18 +40,14 @@ export default {
         waist: "",
         hip: "",
         leg: "",
-        foot: ""
+        foot: "",
       },
-    }
+    };
   },
-  methods:{
-    edit(){
-      this.isVisable = ! this.isVisable;
-    }
-  }
+  methods: {
+    edit() {
+      this.isVisable = !this.isVisable;
+    },
+  },
 };
 </script>
-
-<style>
-
-</style>
