@@ -16,7 +16,8 @@ export function login_google() {
                 {
                 name : user.displayName.toString(),
                 photo : user.photoURL.toString(),
-                uid: user.uid.toString()
+                uid: user.uid.toString(),
+                email: user.email.toString()
                 }
             ));
             await getUserSizes()

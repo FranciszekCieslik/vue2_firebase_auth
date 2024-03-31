@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <b-navbar toggable="lg" type="dark" variant="dark" style="padding-block: 30px;">
+    <b-navbar toggable="lg" type="dark" variant="dark">
       <b-navbar-nav>
         <b-navbar-brand to="/">LookLoom</b-navbar-brand>
       </b-navbar-nav>
@@ -18,13 +17,10 @@
           <b-dropdown-item href="#">ES</b-dropdown-item>
           <b-dropdown-item href="#">FA</b-dropdown-item>
         </b-nav-item-dropdown>
-
         <b-button v-if="!user" to="/signin">Sign in</b-button>
         <b-button v-if="user" @click="logout">Sign out</b-button>
       </b-navbar-nav>
     </b-navbar>
-    <span id="cos"></span>
-  </div>
 </template>
 <script>
 import { logout_google } from "../auth/googleauth";

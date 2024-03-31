@@ -1,8 +1,6 @@
 <template>
-  <b-card bg-variant="light" class="prompt" header="My sizes" v-if="isVisable">
     <div>
-      <!-- <h6 v-for="it in items" :key="it">{{ it }}</h6>
-      <h6 v-for="it in form" :key="it">?{{ it }}</h6> -->
+    <b-card bg-variant="dark" header="My Sizes" text-variant="white" class="text-center" v-if="isVisable">
       <b-form @submit="onSubmit" @reset="onReset">
         <b-form-group
           v-for="(size, index) in sizes"
@@ -39,8 +37,8 @@
       <!-- <b-card class="mt-3" header="Form Data Result">
         <pre class="m-0">{{ form }}</pre>
       </b-card> -->
-    </div>
-  </b-card>
+    </b-card>
+  </div>
 </template>
 
 <script>

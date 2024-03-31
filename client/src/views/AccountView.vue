@@ -1,16 +1,26 @@
 <template>
   <div>
-    <NaviBar msg="" />
-    <div style="padding-top: 10%">
-      <b-row style="margin-inline: 15%">
+    <NaviBar />
+    <div style="padding-top: 10%; margin-inline: 2%">
+      <b-row style="margin-inline: 5%">
         <b-col>
           <div class="px-3 py-2">
             <h4>Account</h4>
+            <hr />
+            <ul v-for="link in links" :key="link">
+              <li>
+                <b-link
+                  :id="link"
+                  style="color: black"
+                  @click="setActive(link)"
+                  >{{ views[link] }}</b-link
+                >
+              </li>
+            </ul>
           </div>
         </b-col>
         <b-col cols="9">
-          <SizeInfo :isVisable="isVisable" @show="edit" />
-          <SizeForm :isVisable="!isVisable" :form="form" @show="edit" />
+          <SizesCard v-if="activeTab === 'mysizes'" />
         </b-col>
       </b-row>
     </div>
@@ -19,35 +29,49 @@
 
 <script>
 import NaviBar from "@/components/NaviBar.vue";
-import SizeInfo from "@/components/SizeInfo.vue";
-import SizeForm from "@/components/SizeForm.vue";
+import SizesCard from "@/components/SizesCard.vue";
 
 export default {
   name: "HomeView",
   components: {
     NaviBar,
-    SizeInfo,
-    SizeForm,
+    SizesCard,
   },
   data() {
     return {
-      isVisable: true,
-      form: {
-        hight: "",
-        front: "",
-        shoulder: "",
-        chest: "",
-        waist: "",
-        hip: "",
-        leg: "",
-        foot: "",
+      views: {
+        mysizes: "My Sizes",
+        mystyle: "My Style",
+        mypref: "My Preferences",
+        mybea: "My Beauty Type",
       },
+      links: [],
+      activeTab: "mysizes",
     };
   },
+  created() {
+    this.links = Object.keys(this.views);
+  },
+  
   methods: {
-    edit() {
-      this.isVisable = !this.isVisable;
+    setActive(tabName) {
+      document.getElementById(this.activeTab).style.fontWeight = "";
+      this.activeTab = tabName;
+      document.getElementById(this.activeTab).style.fontWeight = "bold";
     },
   },
+  
+  mounted(){
+    document.getElementById(this.activeTab).style.fontWeight = "bold";
+  }
 };
 </script>
+
+<style>
+ul {
+  padding-block: 5%;
+}
+li:hover {
+  font-weight: bolder;
+}
+</style>

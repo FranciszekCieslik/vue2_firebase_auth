@@ -1,12 +1,22 @@
 <template>
   <div>
-    <NaviBar msg=""/>
-  <div class="prompt">
-    <b-button squared variant="outline-danger">
-       <b-icon icon="trash" aria-hidden="true" />
-      DELETE ACCOUNT
-    </b-button>
-  </div>
+    <NaviBar />
+    <div class="space">
+      <b-card
+        bg-variant="dark"
+        header="User Informations"
+        text-variant="white"
+        class="text-center"
+      >
+        <p>User name: {{ user_name }}</p>
+        <p>E-mail: {{ user_email }}</p>
+
+        <b-button squared variant="danger">
+          <b-icon icon="trash" aria-hidden="true" />
+          DELETE ACCOUNT
+        </b-button>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -16,12 +26,27 @@ import NaviBar from "@/components/NaviBar.vue";
 export default {
   name: "HomeView",
   components: {
-    NaviBar
-  }
-};
+    NaviBar,
+  },
 
+  data() {
+    return {
+      user_email: "",
+      user_name: "",
+    };
+  },
+
+  created() {
+    const user = JSON.parse(localStorage.getItem("LookLoomUser"));
+    this.user_name = user.name;
+    this.user_email = user.email;
+  },
+};
 </script>
 
 <style>
-
+.space {
+  margin: 10%;
+  margin-inline: 20%;
+}
 </style>

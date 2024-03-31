@@ -1,7 +1,7 @@
 <template>
-  <b-card bg-variant="light" class="prompt" v-if="isVisable">
+    <b-card bg-variant="dark" header="My Sizes" text-variant="white" class="text-center" v-if="isVisable">
     <div>
-      <h5 v-for="size in sizes" :key="size">{{ size }}: {{ form[size] }}</h5>
+      <p v-for="size in sizes" :key="size">{{ size }}: {{ form[size] }}</p>
     </div>
     <b-button variant="info" @click="show">
       <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
