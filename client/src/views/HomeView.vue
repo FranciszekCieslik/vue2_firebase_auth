@@ -33,7 +33,7 @@
 
 <script>
 // @ is an alias to /src
-import NaviBar from "@/components/NaviBar.vue";
+import NaviBar from "@/components/items/NaviBar.vue";
 import HomeCards from "@/components/HomeCards.vue"
 
 export default {

@@ -23,7 +23,7 @@
     </b-navbar>
 </template>
 <script>
-import { logout_google } from "../auth/googleauth";
+import { logout_google } from "../../auth/googleauth";
 
 export default {
   methods: {

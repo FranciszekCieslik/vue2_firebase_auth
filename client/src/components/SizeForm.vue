@@ -1,6 +1,6 @@
 <template>
     <div>
-    <b-card bg-variant="dark" header="My Sizes" text-variant="white" class="text-center" v-if="isVisable">
+    <b-card bg-variant="light" header="My Sizes" text-variant="black" class="text-center" v-if="isVisable">
       <b-form @submit="onSubmit" @reset="onReset">
         <b-form-group
           v-for="(size, index) in sizes"

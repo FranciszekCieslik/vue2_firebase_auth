@@ -21,6 +21,7 @@
         </b-col>
         <b-col cols="9">
           <SizesCard v-if="activeTab === 'mysizes'" />
+          <BeautyTypeCard v-if="activeTab === 'mybea'" />
         </b-col>
       </b-row>
     </div>
@@ -28,14 +29,16 @@
 </template>
 
 <script>
-import NaviBar from "@/components/NaviBar.vue";
+import NaviBar from "@/components/items/NaviBar.vue";
 import SizesCard from "@/components/SizesCard.vue";
+import BeautyTypeCard from "@/components/BeautyTypeCard.vue";
 
 export default {
   name: "HomeView",
   components: {
     NaviBar,
     SizesCard,
+    BeautyTypeCard
   },
   data() {
     return {
