@@ -2,7 +2,7 @@
 node_modules
 /dist
 package-lock.json
-firebaseCongi.js
+firebaseConfig.js
 
 
 # local env files

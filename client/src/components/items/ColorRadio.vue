@@ -3,9 +3,9 @@
           <input
             type="radio"
             name="some-radios"
-            value="A"
+            :value="name"
             @change="handleRadioChange"
-            :checked="selectedOption === 'A'"
+            :checked="selectedOption === name"
           />
           <div class="color-box" :style="{ backgroundColor: color }"></div>
           <label for="radio-blue">{{ name }}</label>
