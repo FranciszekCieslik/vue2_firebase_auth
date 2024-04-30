@@ -33,12 +33,14 @@ const routes = [
   {
     path:'/account',
     name:'AccountView',
-    component:AccountView
+    component:AccountView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/settings',
     name: 'SettingsView',
-    component: SettingsView
+    component: SettingsView,
+    meta: { requiresAuth: true }
   }  
 ]
 
@@ -46,6 +48,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to,from, next)=>{
+  if(to.matched.some(record => record.meta.requiresAuth)){
+    if(!localStorage.getItem("LookLoomUser")){
+      next({
+        path: '/denied'
+      });
+    }else{
+      next();
+    }
+  }else{
+    next();
+  }
 })
 
 export default router

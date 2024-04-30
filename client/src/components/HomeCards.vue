@@ -1,8 +1,13 @@
 <template>
   <div>
-    <b-card no-body>
-      <b-card-header header-tag="nav">
-        <b-nav card-header tabs>
+
+    <div v-if="!user">
+      <MainHomeCard/>
+    </div>
+    <div v-if="user">
+      <b-card no-body>
+        <b-card-header header-tag="nav">
+          <b-nav card-header tabs>
           <b-nav-item @click="setActive('Home')" :active="activeTab === 'Home'"
             >Home</b-nav-item
           >
@@ -10,16 +15,16 @@
             @click="setActive('Suggestions')"
             :active="activeTab === 'Suggestions'"
             >Suggestions</b-nav-item
-          >
+            >
           <b-nav-item
             @click="setActive('Creations')"
             :active="activeTab === 'Creations'"
             >Creations</b-nav-item
           >
           <b-nav-item
-            @click="setActive('My Wardrobe')"
-            :active="activeTab === 'My Wardrobe'"
-            >My Wardrobe</b-nav-item
+          @click="setActive('My Wardrobe')"
+          :active="activeTab === 'My Wardrobe'"
+          >My Wardrobe</b-nav-item
           >
         </b-nav>
       </b-card-header>
@@ -28,6 +33,7 @@
         <MainHomeCard v-if="activeTab === 'Home'" />
       </b-card-body>
     </b-card>
+  </div>
   </div>
 </template>
 
@@ -40,11 +46,17 @@ export default {
     MainHomeCard,
     SuggestionsCard,
   },
-
+  
   data() {
     return {
       activeTab: "Home", // Set the default active tab
+      user: null,
     };
+  },
+  created() {
+    if (localStorage.getItem("LookLoomUser")) {
+      this.user = JSON.parse(localStorage?.getItem("LookLoomUser"));
+    }
   },
 
   methods: {

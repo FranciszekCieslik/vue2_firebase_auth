@@ -9,7 +9,7 @@
           <b-dropdown-item to="/account">Account</b-dropdown-item>
           <b-dropdown-item to="/settings">Settings</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item-dropdown text="Lang" right>
+        <b-nav-item-dropdown v-if=false text="Lang" right>
           <template #button-content>
             <b-icon icon="translate" class="h2 mb-0 custom-hover"></b-icon>
           </template>
