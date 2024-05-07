@@ -22,6 +22,7 @@
         <b-col cols="9">
           <SizesCard v-if="activeTab === 'mysizes'" />
           <BeautyTypeCard v-if="activeTab === 'mybea'" />
+          <MyStyleCard v-if="activeTab === 'mystyle'" />
         </b-col>
       </b-row>
     </div>
@@ -32,20 +33,21 @@
 import NaviBar from "@/components/items/NaviBar.vue";
 import SizesCard from "@/components/SizesCard.vue";
 import BeautyTypeCard from "@/components/BeautyTypeCard.vue";
+import MyStyleCard from "@/components/MyStyleCard"
 
 export default {
   name: "HomeView",
   components: {
     NaviBar,
     SizesCard,
-    BeautyTypeCard
+    BeautyTypeCard,
+    MyStyleCard
   },
   data() {
     return {
       views: {
         mysizes: "My Sizes",
         mystyle: "My Style",
-        mypref: "My Preferences",
         mybea: "My Beauty Type",
       },
       links: [],

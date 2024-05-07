@@ -1,15 +1,17 @@
 <template>
-        <div class="color-radio">
-          <input
-            type="radio"
-            name="some-radios"
-            :value="name"
-            @change="handleRadioChange"
-            :checked="selectedOption === name"
-          />
-          <div class="color-box" :style="{ backgroundColor: color }"></div>
-          <label for="radio-blue">{{ name }}</label>
-        </div>
+    <div style="display: inline-flex;">
+      <div class="color-radio">
+        <input
+        type="radio"
+        name="some-radios"
+        :value="name"
+        @change="handleRadioChange"
+        :checked="selectedOption === name"
+        />
+        <div class="color-box" :style="{ backgroundColor: color }"></div>
+        <label for="radio-blue">{{ name }}</label>
+      </div>
+    </div>
   </template>
   
   <script>
