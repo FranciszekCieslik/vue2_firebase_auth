@@ -11,7 +11,7 @@
         <p>User name: {{ user_name }}</p>
         <p>E-mail: {{ user_email }}</p>
 
-        <b-button squared variant="danger">
+        <b-button @click="deleteAccount" variant="danger">
           <b-icon icon="trash" aria-hidden="true" />
           DELETE ACCOUNT
         </b-button>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import {deleteAppUser} from '@/firestore';
+import { logout_google } from '@/auth/googleauth';
 import NaviBar from "@/components/items/NaviBar.vue";
 
 export default {
@@ -40,6 +42,13 @@ export default {
     const user = JSON.parse(localStorage.getItem("LookLoomUser"));
     this.user_name = user.name;
     this.user_email = user.email;
+  },
+
+  methods: {
+    deleteAccount() {
+      deleteAppUser();
+      logout_google(); 
+    },
   },
 };
 </script>
