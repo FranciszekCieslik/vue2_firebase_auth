@@ -54,3 +54,20 @@ export async function getUserStyles() {
         // console.log(userSnap.data().styles)
     }
 }
+
+export async function updateUserBeauties(){
+    var beauties = JSON.parse(localStorage.getItem('LookLoomUserBeauties'));
+    const userRef = doc(db, 'users', JSON.parse(localStorage.getItem('LookLoomUser')).uid);
+    await setDoc(userRef, { beauties: beauties }, { merge: true });
+}
+
+export async function getUserBeauties(){
+    const userRef = doc(db, 'users', JSON.parse(localStorage.getItem('LookLoomUser')).uid);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap) {
+        localStorage.setItem('LookLoomUserBeauties', JSON.stringify(
+            userSnap.data().beauties
+        ))
+    }
+}

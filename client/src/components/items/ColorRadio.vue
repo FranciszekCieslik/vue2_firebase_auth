@@ -3,13 +3,13 @@
       <div class="color-radio">
         <input
         type="radio"
-        name="some-radios"
+        name="some-radio"
         :value="name"
         @change="handleRadioChange"
         :checked="selectedOption === name"
         />
         <div class="color-box" :style="{ backgroundColor: color }"></div>
-        <label for="radio-blue">{{ name }}</label>
+        <label v-if="show">{{ name }}</label>
       </div>
     </div>
   </template>
@@ -18,13 +18,15 @@
   export default {
     props:{
         name: String,
-        color: String
+        color: String,
+        show: Boolean,
     },
     data() {
       return {
         selectedOption: null,
       };
     },
+
     methods: {
       handleRadioChange(event) {
         this.selectedOption = event.target.value;

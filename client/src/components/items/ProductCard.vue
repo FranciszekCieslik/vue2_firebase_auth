@@ -46,7 +46,8 @@ export default {
     index: Number,
     url: String,
     description: String,
-    img: String
+    img: String,
+    tag:[]
   },
 
   data() {

@@ -1,7 +1,7 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import app  from "../firebaseConfig.js";
 import router from "@/router/index.js";
-import { getUserSizes, getUserStyles } from "@/firestore.js";
+import { getUserBeauties, getUserSizes, getUserStyles } from "@/firestore.js";
 
 const auth = getAuth(app);
 
@@ -22,6 +22,7 @@ export function login_google() {
             ));
             await getUserStyles();
             await getUserSizes();
+            await getUserBeauties();
         }).then(()=>{
             router.push('/');
             router.go();

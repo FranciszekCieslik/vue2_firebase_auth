@@ -68,46 +68,43 @@ export default {
   created() {
     let storedCheckboxes = localStorage.getItem("LookLoomUserStyles");
     if (storedCheckboxes) {
-        this.checkedCheckboxes = JSON.parse(storedCheckboxes);
+      this.checkedCheckboxes = JSON.parse(storedCheckboxes);
     } else {
-        this.checkedCheckboxes = [];
+      this.checkedCheckboxes = [];
     }
-},
+  },
 
-mounted() {
+  mounted() {
     this.checkStoredCheckboxes();
-},
+  },
 
-methods: {
+  methods: {
     checkStoredCheckboxes() {
-        this.checkedCheckboxes.forEach((checkboxId) => {
-            var checkbox = document.getElementById(checkboxId);
-            if (checkbox) {
-                checkbox.checked = true;
-            }
-        });
+      this.checkedCheckboxes.forEach((checkboxId) => {
+        var checkbox = document.getElementById(checkboxId);
+        if (checkbox) {
+          checkbox.checked = true;
+        }
+      });
     },
 
     async saveCheckedCheckboxes() {
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        this.checkedCheckboxes = []; // Reset to ensure no duplicates
+      this.checkedCheckboxes = []; // Reset to ensure no duplicates
+      var checkboxes = document.querySelectorAll(
+        'input[type="checkbox"]:checked'
+      );
 
-        checkboxes.forEach((checkbox) => {
-            if (checkbox.checked) {
-                this.checkedCheckboxes.push(checkbox.id);
-            }
-        });
+      checkboxes.forEach((checkbox) => {
+        this.checkedCheckboxes.push(checkbox.id);
+      });
 
-        this.checkedCheckboxes = [...new Set(this.checkedCheckboxes)]; // Ensure uniqueness
+      localStorage.setItem(
+        "LookLoomUserStyles",
+        JSON.stringify(this.checkedCheckboxes)
+      );
 
-        localStorage.setItem(
-            "LookLoomUserStyles",
-            JSON.stringify(this.checkedCheckboxes)
-        );
-
-        await updateUserStyles();
-    }
-},
-
+      await updateUserStyles();
+    },
+  },
 };
 </script>

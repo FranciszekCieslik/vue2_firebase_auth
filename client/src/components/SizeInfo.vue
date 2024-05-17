@@ -12,7 +12,6 @@
 
 <script>
 import SizeForm from './SizeForm.vue';
-var form = SizeForm.data().form;
 
 export default {
   name: "SizeInfo",
@@ -20,11 +19,12 @@ export default {
 
   data() {
     return {
-      form: form,
+      form: null,
       sizes: [],
     };
   },
   created() {
+    this.form = SizeForm.data().form;
     this.sizes = Object.keys(this.form);
     if (localStorage.getItem("LookLoomUserSizes")) {
       this.form = JSON.parse(localStorage.getItem("LookLoomUserSizes"));

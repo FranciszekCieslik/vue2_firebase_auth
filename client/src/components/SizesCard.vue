@@ -1,8 +1,8 @@
 <template>
-    <div>
-            <SizeInfo :isVisable="isVisable" @show="edit" />
-            <SizeForm :isVisable="!isVisable" :form="form" @show="edit" />
-    </div>
+  <div>
+    <SizeInfo :isVisable="isVisable" @show="edit" />
+    <SizeForm :isVisable="!isVisable" @show="edit" />
+  </div>
 </template>
 
 <script>
