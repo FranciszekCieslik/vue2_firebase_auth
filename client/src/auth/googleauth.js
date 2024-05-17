@@ -1,7 +1,7 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import app  from "../firebaseConfig.js";
 import router from "@/router/index.js";
-import { getUserSizes } from "@/firestore.js";
+import { getUserSizes, getUserStyles } from "@/firestore.js";
 
 const auth = getAuth(app);
 
@@ -20,7 +20,8 @@ export function login_google() {
                 email: user.email.toString()
                 }
             ));
-            await getUserSizes()
+            await getUserStyles();
+            await getUserSizes();
         }).then(()=>{
             router.push('/');
             router.go();

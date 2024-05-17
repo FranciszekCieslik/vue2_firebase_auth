@@ -49,7 +49,7 @@ export async function getUserStyles() {
 
     if (userSnap) {
         localStorage.setItem('LookLoomUserStyles', JSON.stringify(
-            userSnap.data().sizes
+            userSnap.data().styles
         ))
         // console.log(userSnap.data().styles)
     }

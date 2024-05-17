@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card
-      @click="checkBoxes"
+      @click="saveCheckedCheckboxes"
       bg-variant="light"
       v-for="box in checkboxes"
       :key="box.name"
@@ -13,15 +13,16 @@
 
 <script>
 import CheckBoxPic from "./items/CheckBoxPic.vue";
+import { updateUserStyles } from "@/firestore";
 
 export default {
   components: {
     CheckBoxPic,
   },
+
   data() {
     return {
-      form: null,
-
+      checkedCheckboxes: [],
       checkboxes: [
         {
           name: "Casual",
@@ -64,18 +65,49 @@ export default {
     };
   },
 
-  methods: {
-    checkBoxes() {
-      var checkedCheckboxes = [];
-      var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      checkboxes.forEach(function (checkbox) {
-        if (checkbox.checked) {
-          checkedCheckboxes.push(checkbox._value);
-        }
-      });
-      console.log(checkedCheckboxes);
-      localStorage.setItem("UserStyles", JSON.stringify(checkedCheckboxes));
+  created() {
+    let storedCheckboxes = localStorage.getItem("LookLoomUserStyles");
+    if (storedCheckboxes) {
+        this.checkedCheckboxes = JSON.parse(storedCheckboxes);
+    } else {
+        this.checkedCheckboxes = [];
+    }
+},
+
+mounted() {
+    this.checkStoredCheckboxes();
+},
+
+methods: {
+    checkStoredCheckboxes() {
+        this.checkedCheckboxes.forEach((checkboxId) => {
+            var checkbox = document.getElementById(checkboxId);
+            if (checkbox) {
+                checkbox.checked = true;
+            }
+        });
     },
-  },
+
+    async saveCheckedCheckboxes() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        this.checkedCheckboxes = []; // Reset to ensure no duplicates
+
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                this.checkedCheckboxes.push(checkbox.id);
+            }
+        });
+
+        this.checkedCheckboxes = [...new Set(this.checkedCheckboxes)]; // Ensure uniqueness
+
+        localStorage.setItem(
+            "LookLoomUserStyles",
+            JSON.stringify(this.checkedCheckboxes)
+        );
+
+        await updateUserStyles();
+    }
+},
+
 };
 </script>

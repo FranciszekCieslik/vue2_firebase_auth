@@ -1,7 +1,7 @@
 <template>
     <div style="display: inline-flex;">
         <div class = "c-boxpic">
-            <input type="checkbox" :value="name" />
+            <input type="checkbox" :id="name" :value="name" />
             <img :src="img"/>
             <label>{{ name }}</label>
         </div>
