@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { getUserSizes } from '@/firestore';
 import SizeForm from './SizeForm.vue';
 
 export default {
@@ -23,12 +24,11 @@ export default {
       sizes: [],
     };
   },
-  created() {
+
+  async created() {
     this.form = SizeForm.data().form;
     this.sizes = Object.keys(this.form);
-    if (localStorage.getItem("LookLoomUserSizes")) {
-      this.form = JSON.parse(localStorage.getItem("LookLoomUserSizes"));
-    }
+    this.form = await getUserSizes();
   },
 
   methods: {

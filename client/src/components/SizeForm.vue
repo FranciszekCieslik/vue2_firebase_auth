@@ -1,6 +1,12 @@
 <template>
-    <div>
-    <b-card bg-variant="light" header="My Sizes" text-variant="black" class="text-center" v-if="isVisable">
+  <div>
+    <b-card
+      bg-variant="light"
+      header="My Sizes"
+      text-variant="black"
+      class="text-center"
+      v-if="isVisable"
+    >
       <b-form @submit="onSubmit" @reset="onReset">
         <b-form-group
           v-for="(size, index) in sizes"
@@ -34,16 +40,13 @@
         >
         <b-button type="submit" variant="info">Save</b-button>
       </b-form>
-      <!-- <b-card class="mt-3" header="Form Data Result">
-        <pre class="m-0">{{ form }}</pre>
-      </b-card> -->
     </b-card>
   </div>
 </template>
 
 <script>
-import router from '@/router';
-import {updateUserSizes} from '@/firestore'
+import router from "@/router";
+import { getUserSizes, updateUserSizes } from "@/firestore";
 
 export default {
   name: "SizeForm",
@@ -62,12 +65,12 @@ export default {
         "Leg length": "",
         "Foot Size": "",
       },
-      
+
       sizes: [],
-      
+
       conditions: [
         { placeholder: "170 cm", min: "100", max: "300" },
-        { placeholder: "35 cm", min:"30", max:"46" },
+        { placeholder: "35 cm", min: "30", max: "46" },
         { placeholder: "60 cm", min: "50", max: "80" },
         { placeholder: "50 cm", min: "30", max: "70" },
         { placeholder: "90 cm", min: "70", max: "130" },
@@ -78,23 +81,24 @@ export default {
       ],
     };
   },
-  created() {
+
+  async created() {
     this.sizes = Object.keys(this.form);
-    if(localStorage.getItem('LookLoomUserSizes')){
-      this.form = JSON.parse(localStorage.getItem('LookLoomUserSizes'));
-    }
+    this.form = await getUserSizes();
   },
+
   methods: {
     async onSubmit(event) {
       event.preventDefault();
-      localStorage.setItem('LookLoomUserSizes', JSON.stringify(this.form));
       this.$emit("show");
-      await updateUserSizes();
+      await updateUserSizes(this.form);
       router.go();
     },
+
     onReset(event) {
       event.preventDefault();
     },
+
     show() {
       this.$emit("show");
     },

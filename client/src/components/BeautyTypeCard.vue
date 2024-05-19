@@ -43,7 +43,7 @@
 
 <script>
 import ColorRadio from "@/components/items/ColorRadio.vue";
-import {updateUserBeauties} from "@/firestore";
+import {getUserBeauties, updateUserBeauties} from "@/firestore";
 
 export default {
   components: {
@@ -77,19 +77,16 @@ export default {
     };
   },
 
-  created() {
-    let sortedRadio = localStorage.getItem("LookLoomUserBeauties");
-    if (sortedRadio) {
-      this.chosenRadio = JSON.parse(sortedRadio);
-    } else {
+  async beforeCreate() {
+    var sortedRadio = await getUserBeauties();
+    if (!sortedRadio) {
       this.chosenRadio = [];
-    }
-  },
-
-  mounted() {
+    }else{
+      this.chosenRadio = sortedRadio;
+    }  
     this.checkRadio();
   },
-
+  
   methods: {
     checkRadio() {
       this.chosenRadio.forEach((val)=>{
@@ -104,11 +101,7 @@ export default {
       Radios.forEach((radio) => {
         this.chosenRadio.push(radio.value);
       });
-      localStorage.setItem(
-        "LookLoomUserBeauties",
-        JSON.stringify(this.chosenRadio)
-      );
-      await updateUserBeauties();
+      await updateUserBeauties(this.chosenRadio);
     },
   },
 };

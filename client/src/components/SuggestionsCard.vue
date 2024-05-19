@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <b-card-group>
+  <div style="display: flex;">
+    <b-card-group v-for="product in products" :key="product.name" style="margin: 20px;flex-wrap: nowrap;">
       <ProductCard
-        name="Test"
-        index="1"
-        url=""
-        img="https://img01.ztat.net/article/spp-media-p1/778f6ac62eb647788c0d59c466c8d2b1/8728a1b0d0c04bbca9d34bcc1016d507.jpg?imwidth=300"
-        description="Informacje i opis..."
+        :name="product.name"
+        :index="product.index"
+        :url="product.url"
+        :img="product.img"
+        :tag ="product.tag"
       />
     </b-card-group>
   </div>
@@ -14,10 +14,30 @@
 
 <script>
 import ProductCard from "./items/ProductCard.vue";
+import { getProducts } from "@/firestore";
 
 export default {
   components: {
     ProductCard,
+  },
+
+  data() {
+    return {
+      products: null,
+    };
+  },
+
+  async created() {
+    try {
+      const products = await getProducts();
+      this.products = products;
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  },
+
+  methods: {
+    
   },
 };
 </script>

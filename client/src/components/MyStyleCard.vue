@@ -13,7 +13,7 @@
 
 <script>
 import CheckBoxPic from "./items/CheckBoxPic.vue";
-import { updateUserStyles } from "@/firestore";
+import { getUserStyles, updateUserStyles } from "@/firestore";
 
 export default {
   components: {
@@ -65,16 +65,13 @@ export default {
     };
   },
 
-  created() {
-    let storedCheckboxes = localStorage.getItem("LookLoomUserStyles");
+  async beforeCreate() {
+    var storedCheckboxes = await getUserStyles();
     if (storedCheckboxes) {
-      this.checkedCheckboxes = JSON.parse(storedCheckboxes);
+      this.checkedCheckboxes = storedCheckboxes;
     } else {
       this.checkedCheckboxes = [];
     }
-  },
-
-  mounted() {
     this.checkStoredCheckboxes();
   },
 
@@ -98,12 +95,7 @@ export default {
         this.checkedCheckboxes.push(checkbox.id);
       });
 
-      localStorage.setItem(
-        "LookLoomUserStyles",
-        JSON.stringify(this.checkedCheckboxes)
-      );
-
-      await updateUserStyles();
+      await updateUserStyles(this.checkedCheckboxes);
     },
   },
 };
