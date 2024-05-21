@@ -1,37 +1,51 @@
 <template>
-  <div style="display: flex">
-    <div v-for="(val, key) in tags" :key="key" style="padding: 10px">
-      <b-dropdown
-        :text="key"
-        :id="'dropdown-' + key"
-        class="m-2"
-        variant="outline-dark"
-      >
-        <b-dropdown-item
-          :id="'deopdown-item-' + el"
-          v-for="el in val"
-          @click="select(el)"
-          :key="el"
-          >{{ el }}
-          <b-icon
-            v-if="isSelected(el)"
-            icon="check-circle-fill"
-            variant="dark"
-          ></b-icon>
-        </b-dropdown-item>
-      </b-dropdown>
+  <div style="display: inline-flex; place-items: center">
+    <b-form-checkbox
+      id="autofilter"
+      v-model="status"
+      name="autofilter"
+      value="accepted"
+      unchecked-value="not_accepted"
+      @change="handleCheckboxChange"
+    >
+      Autofiltr
+    </b-form-checkbox>
+
+    <div style="display: flex" v-if="status === `not_accepted`">
+      <div v-for="(val, key) in tags" :key="key" style="padding: 10px">
+        <b-dropdown
+          :text="key"
+          :id="'dropdown-' + key"
+          class="m-2"
+          variant="outline-dark"
+        >
+          <b-dropdown-item
+            :id="'deopdown-item-' + el"
+            v-for="el in val"
+            @click="select(el)"
+            :key="el"
+            >{{ el }}
+            <b-icon
+              v-if="isSelected(el)"
+              icon="check-circle-fill"
+              variant="dark"
+            ></b-icon>
+          </b-dropdown-item>
+        </b-dropdown>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { getProducts, getUserProducts } from "@/firestore";
+import { getProducts, getUserProducts, getUserStyles } from "@/firestore";
 
 export default {
   data() {
     return {
       tags: null,
       selectedTag: [],
+      status: "accepted",
     };
   },
   async created() {
@@ -86,6 +100,29 @@ export default {
       } else {
         return false;
       }
+    },
+    async handleCheckboxChange() {
+      this.selectedTag = [];
+      if (this.status === "accepted") {
+        var userStyles = await getUserStyles();
+        if (userStyles) {
+          userStyles.forEach((el, index, array) => {
+            array[index] = el.toLowerCase();
+          });
+          // Convert userStyles array to a single string
+          userStyles = userStyles.join(" ");
+
+          // Iterate over the values of the tags object
+          Object.values(this.tags).forEach((tag) => {
+            tag.forEach((val)=>{
+              if (userStyles.includes(val)) {
+                this.selectedTag.push(val);
+              }
+            })
+          });
+        }
+      }
+      this.$emit("send-data", this.selectedTag);
     },
   },
 };

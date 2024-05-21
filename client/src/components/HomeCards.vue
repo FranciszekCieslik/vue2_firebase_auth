@@ -27,7 +27,7 @@
           >
         </b-nav>
       </b-card-header>
-      <b-card-body class="text-center">
+      <b-card-body class="centered-div">
         <SuggestionsCard v-if="activeTab === 'Suggestions'" />
         <MainHomeCard v-if="activeTab === 'Home'" />
         <MyWardrobeCard v-if="activeTab === 'My Wardrobe'" />
@@ -68,3 +68,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.centered-div{
+  display: grid;
+  place-items: center;
+}
+</style>

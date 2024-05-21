@@ -1,21 +1,21 @@
 <template>
   <div>
-    <filterBlock @send-data="handleData" />
-    <div style="display: flex">
-      <b-card-group
-        v-for="product in products"
-        :key="product.name"
-        style="margin: 20px; flex-wrap: nowrap"
-      >
-        <ProductCard
-          :name="product.name"
-          :index="product.index"
-          :url="product.url"
-          :img="product.img"
-          :tag="product.tag"
-        />
-      </b-card-group>
-    </div>
+    <filterBlock @send-data="handleData"/>
+  <div style="display: flex">
+    <b-card-group
+      v-for="product in products"
+      :key="product.name"
+      style="margin: 20px; flex-wrap: nowrap"
+    >
+      <ProductCard
+        :name="product.name"
+        :index="product.index"
+        :url="product.url"
+        :img="product.img"
+        :tag="product.tag"
+      />
+    </b-card-group>
+  </div>
   </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
 
   data() {
     return {
-      products: null,
+      products: null
     };
   },
 
@@ -54,7 +54,7 @@ export default {
     },
 
     async handleData(data) {
-      var selectedTags = await data; 
+      var selectedTags = await data;
       await this.importProducts();
       var products = this.products;
       var filteredProducts = products.filter((product) => {
@@ -68,7 +68,7 @@ export default {
       } else {
         this.products = filteredProducts;
       }
-    },
+    }
   },
 };
 </script>
