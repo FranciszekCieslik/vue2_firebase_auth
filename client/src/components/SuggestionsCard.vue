@@ -55,6 +55,7 @@ export default {
 
     async handleData(data) {
       var selectedTags = await data; 
+      await this.importProducts();
       var products = this.products;
       var filteredProducts = products.filter((product) => {
         var tagList = Object.values(product.tag);
