@@ -84,3 +84,17 @@ export async function getUserProducts() {
         return userSnap.data().products;
     }
 }
+
+export async function updateUserSex(sex) {
+    const userRef = doc(db, 'users', JSON.parse(localStorage.getItem('LookLoomUser')).uid);
+    await setDoc(userRef, { sex: sex }, { merge: true });
+}
+
+export async function getUserSex() {
+    const userRef = doc(db, 'users', JSON.parse(localStorage.getItem('LookLoomUser')).uid);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap) {
+        return userSnap.data().sex;
+    }
+}

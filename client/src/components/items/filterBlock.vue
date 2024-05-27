@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { getProducts, getUserProducts, getUserStyles } from "@/firestore";
+import { getProducts, getUserProducts, getUserSex, getUserStyles } from "@/firestore";
 
 export default {
   data() {
@@ -104,6 +104,16 @@ export default {
     async handleCheckboxChange() {
       this.selectedTag = [];
       if (this.status === "accepted") {
+        var UserSex = await getUserSex();
+        if(UserSex == "male"){
+          this.selectedTag.push("men");
+        }else
+        {
+          if(UserSex == "female")
+          {
+            this.selectedTag.push("women");
+          }
+        }
         var userStyles = await getUserStyles();
         if (userStyles) {
           userStyles.forEach((el, index, array) => {

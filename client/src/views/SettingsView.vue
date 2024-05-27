@@ -8,6 +8,11 @@
         text-variant="white"
         class="text-center"
       >
+      <div>
+        <SexRadios name="male"/>
+        <SexRadios name="female"/>
+        <SexRadios name="others"/>
+      </div>
         <p>User name: {{ user_name }}</p>
         <p>E-mail: {{ user_email }}</p>
 
@@ -24,11 +29,13 @@
 import {deleteAppUser} from '@/firestore';
 import { logout_google } from '@/auth/googleauth';
 import NaviBar from "@/components/items/NaviBar.vue";
+import SexRadios from "@/components/items/SexRadios.vue"
 
 export default {
   name: "HomeView",
   components: {
     NaviBar,
+    SexRadios
   },
 
   data() {
