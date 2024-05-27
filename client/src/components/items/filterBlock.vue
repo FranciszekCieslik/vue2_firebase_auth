@@ -38,7 +38,12 @@
 </template>
 
 <script>
-import { getProducts, getUserProducts, getUserSex, getUserStyles } from "@/firestore";
+import {
+  getProducts,
+  getUserProducts,
+  getUserSex,
+  getUserStyles,
+} from "@/firestore";
 
 export default {
   data() {
@@ -52,6 +57,7 @@ export default {
     try {
       var products = await getProducts();
       var indexes = await getUserProducts();
+      this.handleCheckboxChange();
       products = products.filter((product) => {
         return !indexes.includes(product.index);
       });
@@ -59,7 +65,6 @@ export default {
       products.forEach((element) => {
         tags.push(element.tag);
       });
-
       const combinedTags = tags.reduce((acc, currentTag) => {
         Object.entries(currentTag).forEach(([key, value]) => {
           if (!acc[key]) {
@@ -69,13 +74,11 @@ export default {
         });
         return acc;
       }, {});
-
       for (const key in combinedTags) {
         combinedTags[key] = Array.from(combinedTags[key]);
       }
       combinedTags.colour = [...new Set(combinedTags.colour.flat())];
       combinedTags.style = [...new Set(combinedTags.style.flat())];
-
       this.tags = combinedTags;
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -105,12 +108,10 @@ export default {
       this.selectedTag = [];
       if (this.status === "accepted") {
         var UserSex = await getUserSex();
-        if(UserSex == "male"){
+        if (UserSex == "male") {
           this.selectedTag.push("men");
-        }else
-        {
-          if(UserSex == "female")
-          {
+        } else {
+          if (UserSex == "female") {
             this.selectedTag.push("women");
           }
         }
@@ -124,11 +125,11 @@ export default {
 
           // Iterate over the values of the tags object
           Object.values(this.tags).forEach((tag) => {
-            tag.forEach((val)=>{
+            tag.forEach((val) => {
               if (userStyles.includes(val)) {
                 this.selectedTag.push(val);
               }
-            })
+            });
           });
         }
       }
